@@ -15,18 +15,24 @@ const Product = () => {
   );
   const [relatedProducts, setRelatedProducts] = useState([]);
   useEffect(() => {
-    window.scrollTo(0, 0);
-    setSelectedProduct(
-      products.filter((item) => parseInt(item.id) === parseInt(id))[0]
-    );
+  window.scrollTo(0, 0);
+
+  const product = products.find(
+    (item) => parseInt(item.id) === parseInt(id)
+  );
+
+  setSelectedProduct(product);
+
+  if (product) {
     setRelatedProducts(
       products.filter(
         (item) =>
-          item.category === selectedProduct?.category &&
-          item.id !== selectedProduct?.id
+          item.category === product.category && item.id !== product.id
       )
     );
-  }, [selectedProduct, id]);
+  }
+}, [id]);
+
 
   useWindowScrollToTop();
 
